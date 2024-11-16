@@ -1,22 +1,21 @@
 import AppointmentModel from '../models/appointmentModel.mjs';
 
-class AppointmentService {
-  static async createAppointment(patientId, appointmentData) {
-    try {
-      // Asegúrate de que el patientId esté siendo utilizado correctamente
-      const appointment = await AppointmentModel.create({
-        date: appointmentData.date,
-        hour: appointmentData.hour,
-        patientId: patientId,  // Aquí pasamos el patientId correctamente
-        doctorId: appointmentData.doctorId
-      });
+export default class AppointmentService {
+  static async createAppointment(patientId, data) {
+    const { doctorId, date, hour } = data;
 
-      return appointment;
-    } catch (error) {
-      console.error('Error en el servicio de citas:', error.message);
-      throw error;
+    // Verifica si ya existe una cita para el mismo doctor en la misma fecha y hora
+    const existingAppointment = await AppointmentModel.findByDoctorAndDate(doctorId, date, hour);
+    if (existingAppointment) {
+      throw new Error('There is already an appointment for this doctor at the specified date and time');
     }
-  }
-}
 
-export default AppointmentService;
+    // Crea la cita
+    return await AppointmentModel.create({ date, hour, patientId, doctorId });
+  }
+
+  static async getAppointmentsByPatient(patientId) {
+    return await AppointmentModel.findByPatientId(patientId);
+  }
+  
+}

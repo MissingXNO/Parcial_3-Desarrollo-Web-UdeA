@@ -15,16 +15,13 @@ class PatientController {
     }
   }
 
+  // Agendar una nueva cita
   static async createAppointment(req, res) {
     try {
-      const patientId = req.user.id; // Obtener ID del paciente desde el token
-      if (!patientId) {
-        return res.status(400).json({ message: 'Patient ID is missing' });
-      }
-  
+      const patientId = req.user.id; // ID del paciente extraído del token JWT
       const appointmentData = req.body;
+
       const appointment = await AppointmentService.createAppointment(patientId, appointmentData);
-  
       res.status(201).json(appointment);
     } catch (error) {
       console.error('Error creating appointment:', error.message);

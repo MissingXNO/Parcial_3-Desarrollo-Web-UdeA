@@ -1,12 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import AuthController from '../controllers/authController.mjs';
-import { check } from 'express-validator';
 
-const router = express.Router();
+const router = Router();
 
-router.post('/login', [
-  check('email', 'Email is required').isEmail(),
-  check('password', 'Password is required').exists()
-], AuthController.login);
+router.post('/login', AuthController.login);
 
 export default router;

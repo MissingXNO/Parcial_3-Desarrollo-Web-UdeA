@@ -1,23 +1,20 @@
--- Insertar especialidades
-INSERT INTO specialty (name) VALUES ('Medicina General'), ('Cardiología'), ('Urología'), ('Pediatría');
-
--- Insertar médicos
-INSERT INTO doctor (name, age, email, password, specialty_id) VALUES
-('Dr. Pérez', 45, 'drperez@hospital.com', 'hashedpassword1', 1),
-('Dra. García', 38, 'dragarcía@hospital.com', 'hashedpassword2', 2),
-('Dr. Rodríguez', 50, 'drrodriguez@hospital.com', 'hashedpassword3', 3),
-('Dra. López', 40, 'dralopez@hospital.com', 'hashedpassword4', 4),
-('Dr. Martínez', 55, 'drmartinez@hospital.com', 'hashedpassword5', 1);
-
--- Insertar pacientes
+-- Insertar datos en la tabla Patient
 INSERT INTO patient (name, age, email, password) VALUES
-('Alice', 30, 'alice@domain.com', 'hashedpassword1'),
-('Bob', 45, 'bob@domain.com', 'hashedpassword2'),
-('Charlie', 25, 'charlie@domain.com', 'hashedpassword3'),
-('David', 35, 'david@domain.com', 'hashedpassword4'),
-('Eve', 29, 'eve@domain.com', 'hashedpassword5'),
-('Frank', 50, 'frank@domain.com', 'hashedpassword6'),
-('Grace', 40, 'grace@domain.com', 'hashedpassword7'),
-('Hank', 60, 'hank@domain.com', 'hashedpassword8'),
-('Ivy', 28, 'ivy@domain.com', 'hashedpassword9'),
-('Jack', 33, 'jack@domain.com', 'hashedpassword10');
+('María Gómez', 30, 'maria.gomez@example.com', 'hashedpassword1'),
+('Luis Rodríguez', 28, 'luis.rodriguez@example.com', 'hashedpassword2'),
+('Carmen Fernández', 35, 'carmen.fernandez@example.com', 'hashedpassword3'),
+('José Hernández', 40, 'jose.hernandez@example.com', 'hashedpassword4'),
+('Lucía Sánchez', 22, 'lucia.sanchez@example.com', 'hashedpassword5');
+
+-- Insertar datos en la tabla Specialty
+INSERT INTO specialty (name) VALUES
+('Cardiology'), ('Neurology'), ('Orthopedics');
+
+-- Insertar datos en la tabla Doctor
+INSERT INTO doctor (name, age, email, password, specialty_id) VALUES
+('Dr. Ana Perez', 45, 'ana.perez@example.com', 'hashedpassword6', 1),
+('Dr. Juan Martinez', 50, 'juan.martinez@example.com', 'hashedpassword7', 2);
+
+-- Insertar datos en la tabla MedicalAppointment
+INSERT INTO medicalappointment (date, hour, patient_id, doctor_id) VALUES
+('2024-11-25', '10:00', 1, 1), ('2024-11-26', '11:00', 2, 2);

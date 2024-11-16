@@ -1,29 +1,29 @@
-CREATE DATABASE medical_app;
-
-\c medical_app;
-
-CREATE TABLE specialty (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
-
-CREATE TABLE doctor (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    age INTEGER,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL,
-    specialty_id INTEGER REFERENCES specialty(id)
-);
-
+-- Crear tabla Patient
 CREATE TABLE patient (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    age INTEGER,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    age INTEGER NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL
 );
 
+-- Crear tabla Doctor
+CREATE TABLE doctor (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INTEGER NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    specialty_id INTEGER NOT NULL
+);
+
+-- Crear tabla Specialty
+CREATE TABLE specialty (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Crear tabla MedicalAppointment
 CREATE TABLE medicalappointment (
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,

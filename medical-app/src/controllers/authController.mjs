@@ -27,9 +27,18 @@ class AuthController {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
 
+      // Crear el token JWT
       const token = jwt.sign({ id: patient.id, role: 'patient' }, secret, { expiresIn: '30m' });
       console.log('Token generado:', token);
-      res.json({ token });
+
+      // Establecer el token en una cookie (httpOnly y secure en producción)
+      res.cookie('token', token, { 
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', // Asegúrate de que esté habilitado en producción
+        maxAge: 30 * 60 * 1000 // 30 minutos
+      });
+
+      res.status(200).json({ message: 'Login successful' });
     } catch (error) {
       console.error('Error durante el inicio de sesión:', error.message);
       res.status(500).json({ message: error.message });

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import PatientController from '../controllers/patientController.mjs';
-import authMiddleware from '../middlewares/authMiddleware.mjs';
+import { authMiddleware } from '../middlewares/authMiddleware.mjs';
 
 const router = Router();
 
@@ -8,7 +8,6 @@ const router = Router();
 router.get('/appointment', authMiddleware, PatientController.getAppointments);
 
 // Endpoint para agendar citas
-router.post('/appointment', authMiddleware, PatientController.createAppointment);
-
+router.post('/appointments', authMiddleware, PatientController.createAppointment);
 
 export default router;

@@ -9,4 +9,14 @@ export default class PatientService {
       return await AppointmentModel.findByPatientId(patientId);
     }
   }
+
+  // Agendar una nueva cita
+  static async scheduleAppointment({ patientId, doctorId, date, time }) {
+    return await AppointmentModel.create({
+      patientId,
+      doctorId,
+      date,
+      time,
+    });
+  }
 }

@@ -1,15 +1,34 @@
 import pool from './db.mjs';
 
-export default class AppointmentModel {
+class AppointmentModel {
+  // Consultar citas por ID de paciente
   static async findByPatientId(patientId) {
-    const result = await pool.query('SELECT * FROM medicalappointment WHERE patient_id = $1', [patientId]);
-    return result.rows;
+    try {
+      const result = await pool.query(
+        'SELECT * FROM medicalappointment WHERE patient_id = $1',
+        [patientId]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Database Query Error:', error.message);
+      throw error;
+    }
   }
 
-  static async findByDoctorId(doctorId) {
-    const result = await pool.query('SELECT * FROM medicalappointment WHERE doctor_id = $1', [doctorId]);
-    return result.rows;
+  // Consultar citas por ID de paciente y fecha
+  static async findByPatientIdAndDate(patientId, date) {
+    try {
+      const result = await pool.query(
+        'SELECT * FROM medicalappointment WHERE patient_id = $1 AND date = $2',
+        [patientId, date]
+      );
+      return result.rows;
+    } catch (error) {
+      console.error('Database Query Error:', error.message);
+      throw error;
+    }
   }
-
-  // Otros métodos según sea necesario
 }
+
+export default AppointmentModel;
+

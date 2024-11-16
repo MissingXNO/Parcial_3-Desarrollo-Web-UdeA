@@ -1,11 +1,10 @@
 import { Router } from 'express';
 import PatientController from '../controllers/patientController.mjs';
-import authMiddleware from '../middlewares/authMiddleware.mjs'; // Middleware de autenticación
+import authMiddleware from '../middlewares/authMiddleware.mjs';
 
 const router = Router();
 
-// Ejemplo de una ruta que utiliza authMiddleware y un controlador
-router.get('/:id', authMiddleware, PatientController.getPatientById);
-router.post('/', authMiddleware, PatientController.createPatient);
+// Ruta para obtener citas de un paciente
+router.get('/appointment', authMiddleware, PatientController.getAppointments);
 
 export default router;

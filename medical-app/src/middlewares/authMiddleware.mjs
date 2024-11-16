@@ -1,22 +1,18 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
-const secret = process.env.JWT_SECRET;
 
 const authMiddleware = (req, res, next) => {
-  const authHeader = req.header('Authorization');
-  if (!authHeader) {
-    return res.status(401).json({ message: 'No token provided' });
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized: Token not provided' });
   }
 
-  const token = authHeader.replace('Bearer ', '');
   try {
-    const decoded = jwt.verify(token, secret);
-    req.user = decoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'mi_secreto_jwt');
+    req.user = decoded; // Pasa el id del usuario al objeto req
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Invalid token' });
+    res.status(401).json({ message: 'Unauthorized: Invalid token' });
   }
 };
 
